@@ -1,7 +1,7 @@
 from threading import Thread, Event
 import socket
 
-from lockedQueue import lockedQueue
+from whisper_spln.lockedQueue import lockedQueue
 
 PORT = 9999
 ASK_QUEUE_STATUS = "ASK_QUEUE_STATUS"
