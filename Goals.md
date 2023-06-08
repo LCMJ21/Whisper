@@ -15,16 +15,26 @@ prever um instalador (?)
 Tarefas:
 
 - 2 threads:
-uma para receber pedidos e colocá-los na queue
-tenta comunicar com o servidor e não tenha resposta cria ele um.
+uma para receber pedidos e colocá-los na queue ✓
+tenta comunicar com o servidor e não tenha resposta cria ele um. ✓
 
-Para desligar o servidor, basta avisa o listener thread que não há mais pedidos, e termina.
+Para desligar o servidor, basta avisa o listener thread que não há mais pedidos, e termina. ✓
 
-- Vizualizar o progresso da queue.
+- Vizualizar o progresso da queue. (adicionar tempo/tamanho ficheiro)
 
+- Calcular o tempo de execução da queue terminar: CRIS
+    - calcular o tempo de execução de cada pedido para adicionar à media
+    - tempo do pedido atual
+    - guarda em ficheiro ao desligar
 
----------------------------------------------
+- argparser para decidir o input, output(opcional), linguagem input(opcional), linguagem output(opcional). ✓
 
-- Calcular o tempo de execução da queue terminar:
+- adicionar ao flit para ter instalação mais fácil
 
-- argparser para decidir o input, output(opcional), linguagem input(opcional), linguagem output(opcional). 
+- traduções com ou sem googe translate ?
+
+- COrrer as 2 threads em background
+
+Extras: CRIS
+- Listar linguas disponiveis para input audio em help
+- Verficar se as liguas de input a audio são suportadas

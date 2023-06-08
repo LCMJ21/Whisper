@@ -3,7 +3,7 @@ import socket
 
 from lockedQueue import lockedQueue
 
-PORT = 9900
+PORT = 9999
 ASK_QUEUE_STATUS = "ASK_QUEUE_STATUS"
 
 

@@ -36,4 +36,5 @@ else:
         worker = Worker(shared_queue, event_shutdown)
         listener.start()
         worker.start()
+        # TODO run this procees in background
     
