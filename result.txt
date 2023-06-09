@@ -31,3 +31,48 @@ audio.mp3
 audio.mp3
  Test, test, test, I am testing whisper.
 -------------
+audio.mp3
+ Test, test, test, I am testing whisper.
+-------------
+audio.mp3
+ Test, test, test, I am testing whisper.
+-------------
+audio.mp3
+ Test, test, test, I am testing whisper.
+-------------
+audio.mp3
+Error: 'NoneType' object has no attribute 'group'
+-------------
+audio.mp3
+Error: 'NoneType' object has no attribute 'group'
+-------------
+audio.mp3
+ Test, test, test, I am testing whisper.
+-------------
+audio.mp3
+ Test, test, test, I am testing whisper.
+-------------
+audio.mp3
+Error: 'NoneType' object has no attribute 'group'
+-------------
+audio.mp3
+ Test, test, test, I am testing whisper.
+-------------
+audio.mp3
+ Test, test, test, I am testing whisper.
+-------------
+audio.mp3
+ Test, test, test, I am testing whisper.
+-------------
+audio.mp3
+ Test, test, test, I am testing whisper.
+-------------
+audio.mp3
+ Test, test, test, I am testing whisper.
+-------------
+audio.mp3
+Teste, teste, teste, estou testando sussurro.
+-------------
+audio.mp3
+Error: invalid destination language
+-------------

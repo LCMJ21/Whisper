@@ -4,6 +4,7 @@ from whisper_spln.listener import ASK_QUEUE_STATUS, PORT, Listener
 import socket
 from whisper_spln.lockedQueue import lockedQueue
 import argparse
+import pickle
 
 
 def main():
@@ -21,7 +22,7 @@ def main():
     parser.add_argument('-il', '--inputLang', type=str,
                         default='pt', help='Language of the input file')
     parser.add_argument('-ol', '--outputLang', type=str,
-                        default='pt', help='Language of the output text')
+                        help='Language of the output text')
     parser.add_argument('-q', '--queue', action=QueueAction,
                         help='Show the audio conversion queue')
 
@@ -33,19 +34,24 @@ def main():
     dest_folder = args.dest
     inputLang = args.inputLang
     outputLang = args.outputLang
-    
+    dict = {
+        "filename": input_file,
+        "outputLang": outputLang,
+    }
     try:
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server_address = ('localhost', PORT)
         client_socket.connect(server_address)
-        client_socket.sendall(input_file.encode())
+
+        send_request = pickle.dumps(dict)
+        client_socket.sendall(send_request)
         response = client_socket.recv(1024)
         print('Received:', response.decode())
         client_socket.close()
     except ConnectionRefusedError:
         event_shutdown = Event()
         shared_queue = lockedQueue()
-        shared_queue.put(input_file)
+        shared_queue.put(dict)
         listener = Listener(shared_queue, event_shutdown)
         worker = Worker(shared_queue, event_shutdown)
         listener.start()
@@ -68,7 +74,7 @@ class QueueAction(argparse.Action):
             client_socket.close()
         except ConnectionRefusedError:
             print("No server found, no jobs in queue")
-            
+
         parser.exit()
 
 

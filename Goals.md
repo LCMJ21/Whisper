@@ -29,11 +29,11 @@ Para desligar o servidor, basta avisa o listener thread que não há mais pedido
 
 - argparser para decidir o input, output(opcional), linguagem input(opcional), linguagem output(opcional). ✓
 
-- adicionar ao flit para ter instalação mais fácil
+- adicionar ao flit para ter instalação mais fácil ✓
 
-- traduções com ou sem googe translate ?
+- traduções com ou sem googe translate ? João
 
-- COrrer as 2 threads em background
+- COrrer as 2 threads em background João
 
 Extras: CRIS
 - Listar linguas disponiveis para input audio em help
