@@ -74,3 +74,7 @@ class QueueAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string, **kwargs):
         main()
         parser.exit()
+
+
+if __name__ == '__main__':
+    main()
