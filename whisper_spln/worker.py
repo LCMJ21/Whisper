@@ -19,6 +19,7 @@ class Worker(Thread):
         while not self.shutdown:
             self.process_queue()
             sleep(20)  # Sleep for 20 seconds to wait for more work
+        self.shared_queue.saveTime()
         self.event_shutdown.set()
         print("Worker stopped")
 

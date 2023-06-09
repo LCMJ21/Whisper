@@ -45,9 +45,10 @@ def main():
     except ConnectionRefusedError:
         event_shutdown = Event()
         shared_queue = lockedQueue()
-        shared_queue.put(input_file)
+        prediction = shared_queue.put(input_file)
         listener = Listener(shared_queue, event_shutdown)
         worker = Worker(shared_queue, event_shutdown)
+        print(f'Received: Your file will be ready in {round(prediction, 2)} seconds!')
         listener.start()
         worker.start()
         # TODO run this procees in background

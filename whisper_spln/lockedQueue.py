@@ -12,6 +12,24 @@ class lockedQueue():
         self.actualSize = 0
         self.meanTime = 0
         self.numConversions = 0
+        self.loadTime()
+    
+    def loadTime(self):
+        with open('whisper_spln/conf/exec_time', 'r') as file:
+            lines = [line.rstrip() for line in file]
+        
+        if len(lines) == 2:
+            self.meanTime = float(lines[0])
+            self.numConversions = float(lines[1])
+    
+    def saveTime(self):
+        self.lock.acquire()
+        
+        with open('whisper_spln/conf/exec_time', 'w') as file:
+            file.write(f"{self.meanTime}\n")
+            file.write(f"{self.numConversions}\n")
+            
+        self.lock.release()
 
     def put(self, item):
         self.lock.acquire()
