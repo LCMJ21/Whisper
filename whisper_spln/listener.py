@@ -1,5 +1,6 @@
 from threading import Thread, Event
 import socket
+import pickle
 
 from whisper_spln.lockedQueue import lockedQueue
 
@@ -8,11 +9,11 @@ ASK_QUEUE_STATUS = "ASK_QUEUE_STATUS"
 
 
 class Listener(Thread):
-    def __init__(self, shared_queue : lockedQueue, event_shutdown : Event):
+    def __init__(self, shared_queue: lockedQueue, event_shutdown: Event):
         Thread.__init__(self)
         self.shared_queue = shared_queue
         self.event_shutdown = event_shutdown
-    
+
     def run(self):
         self.listen()
 
@@ -26,8 +27,10 @@ class Listener(Thread):
             try:
                 client_socket, client_address = server_socket.accept()
                 print('Connected by', client_address)
-                request = client_socket.recv(1024).decode()
-                response = self.handle_request(request)
+                request = client_socket.recv(4096)
+
+                received_dict = pickle.loads(request)
+                response = self.handle_request(received_dict["filename"])
                 client_socket.sendall(response.encode())
                 client_socket.close()
             except socket.timeout:

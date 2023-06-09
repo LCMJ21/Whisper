@@ -1,7 +1,7 @@
 from threading import Event, Thread
 from time import sleep
 import whisper
-
+from googletrans import Translator
 from whisper_spln.lockedQueue import lockedQueue
 
 
@@ -13,6 +13,7 @@ class Worker(Thread):
         self.event_shutdown = event_shutdown
         self.shutdown = False
         self.model = whisper.load_model("base")
+        self.translator = Translator()
 
     def run(self):
         print("Worker started")
@@ -23,19 +24,27 @@ class Worker(Thread):
         self.event_shutdown.set()
         print("Worker stopped")
 
+    def translate(self, text, dest):
+        return self.translator.translate(text, dest=dest).text
+
     def process_queue(self):
         self.shutdown = True if self.shared_queue.empty() else False
 
         while not self.shared_queue.empty():
-            file = self.shared_queue.get()
-            print("Handling ------>", file[0])
+            dict = self.shared_queue.get()
+            filename = dict["filename"]
+            outputLang = dict["outputLang"]
+            print("Handling ------>", filename)
             try:
-                result = self.model.transcribe(file[0], fp16=False)["text"]
+                result = self.model.transcribe(filename, fp16=False)["text"]
+                if outputLang != None:
+                    result = self.translate(result, outputLang)
                 self.shared_queue.calculteNewMean()
+
             except Exception as e:
                 result = f"Error: {e}"
                 self.shared_queue.stopRunning()
-                
+
             open("result.txt", "a").write(
-                f"{file[0]}\n{result}\n-------------\n")
-            print("Finished ------>", file[0])
+                f"{filename}\n{result}\n-------------\n")
+            print("Finished ------>", filename)

@@ -10,7 +10,7 @@ license = { file = "LICENSE" }
 classifiers = ["License :: OSI Approved :: MIT License"]
 dynamic = ["version", "description"]
 
-dependencies = ["whisper"]
+dependencies = ["whisper", "googletrans==4.0.0-rc1"]
 
 [tool.flit.module]
 name = "whisper_spln"
