@@ -38,7 +38,12 @@ class Worker(Thread):
                 result = self.model.transcribe(filename, fp16=False)["text"]
                 if outputLang != None:
                     result = self.translate(result, outputLang)
+                self.shared_queue.calculteNewMean()
+
             except Exception as e:
                 result = f"Error: {e}"
+                self.shared_queue.stopRunning()
+
             open("result.txt", "a").write(
                 f"{filename}\n{result}\n-------------\n")
+            print("Finished ------>", filename)

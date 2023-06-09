@@ -43,5 +43,5 @@ class Listener(Thread):
         if request == ASK_QUEUE_STATUS:
             return f"{self.shared_queue.all_items()}"
         else:
-            self.shared_queue.put(request)
-            return 'Response from server ...'
+            prediction = self.shared_queue.put(request)
+            return f'Your file will be ready in {round(prediction, 2)} seconds!'
