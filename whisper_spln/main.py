@@ -33,10 +33,31 @@ def main():
     dest_folder = args.dest
     inputLang = args.inputLang
     outputLang = args.outputLang
-    queue_progress = False
+    
+    try:
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server_address = ('localhost', PORT)
+        client_socket.connect(server_address)
+        client_socket.sendall(input_file.encode())
+        response = client_socket.recv(1024)
+        print('Received:', response.decode())
+        client_socket.close()
+    except ConnectionRefusedError:
+        event_shutdown = Event()
+        shared_queue = lockedQueue()
+        shared_queue.put(input_file)
+        listener = Listener(shared_queue, event_shutdown)
+        worker = Worker(shared_queue, event_shutdown)
+        listener.start()
+        worker.start()
+        # TODO run this procees in background
 
-    # aqui para cima era o que estava fora da main
-    if queue_progress:
+
+class QueueAction(argparse.Action):
+    def __init__(self, option_strings, dest, **kwargs):
+        return super().__init__(option_strings, dest, nargs=0, default=argparse.SUPPRESS, **kwargs)
+
+    def __call__(self, parser, namespace, values, option_string, **kwargs):
         try:
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             server_address = ('localhost', PORT)
@@ -47,32 +68,7 @@ def main():
             client_socket.close()
         except ConnectionRefusedError:
             print("No server found, no jobs in queue")
-    else:
-        try:
-            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            server_address = ('localhost', PORT)
-            client_socket.connect(server_address)
-            client_socket.sendall(input_file.encode())
-            response = client_socket.recv(1024)
-            print('Received:', response.decode())
-            client_socket.close()
-        except ConnectionRefusedError:
-            event_shutdown = Event()
-            shared_queue = lockedQueue()
-            shared_queue.put(input_file)
-            listener = Listener(shared_queue, event_shutdown)
-            worker = Worker(shared_queue, event_shutdown)
-            listener.start()
-            worker.start()
-            # TODO run this procees in background
-
-
-class QueueAction(argparse.Action):
-    def __init__(self, option_strings, dest, **kwargs):
-        return super().__init__(option_strings, dest, nargs=0, default=argparse.SUPPRESS, **kwargs)
-
-    def __call__(self, parser, namespace, values, option_string, **kwargs):
-        main()
+            
         parser.exit()
 
 
