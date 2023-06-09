@@ -22,18 +22,18 @@ Para desligar o servidor, basta avisa o listener thread que não há mais pedido
 
 - Vizualizar o progresso da queue. (adicionar tempo/tamanho ficheiro)
 
-- Calcular o tempo de execução da queue terminar: CRIS
-    - calcular o tempo de execução de cada pedido para adicionar à media
-    - tempo do pedido atual
+- Calcular o tempo de execução da queue terminar:
+    - calcular o tempo de execução de cada pedido para adicionar à media ✓
+    - tempo do pedido atual ✓
     - guarda em ficheiro ao desligar
 
 - argparser para decidir o input, output(opcional), linguagem input(opcional), linguagem output(opcional). ✓
 
-- adicionar ao flit para ter instalação mais fácil
+- adicionar ao flit para ter instalação mais fácil ✓
 
-- traduções com ou sem googe translate ?
+- traduções com ou sem google translate ?
 
-- COrrer as 2 threads em background
+- Correr as 2 threads em background
 
 Extras: CRIS
 - Listar linguas disponiveis para input audio em help

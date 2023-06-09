@@ -1,18 +1,31 @@
 from threading import Lock
+from time import time
+import os
 
 class lockedQueue():
     
     def __init__(self):
         self.lock = Lock()
         self.queue = []
+        self.isRunning = False
+        self.actualTime = 0
+        self.actualSize = 0
+        self.meanTime = 0
+        self.numConversions = 0
 
     def put(self, item):
         self.lock.acquire()
-        self.queue.append(item)
+        self.queue.append((item, os.stat(item).st_size))
+        prediction = self.getTimePrediction()
         self.lock.release()
+        
+        return prediction
     
     def get(self):
         self.lock.acquire()
+        self.actualSize = self.queue[0][1]
+        self.actualTime = time()
+        self.isRunning = True
         item = self.queue.pop(0)
         self.lock.release()
         return item
@@ -28,3 +41,31 @@ class lockedQueue():
         items = self.queue.copy()
         self.lock.release()
         return items
+    
+    def calculteNewMean(self):
+        self.lock.acquire()
+        
+        meanTime= (time() - self.actualTime) / self.actualSize
+        
+        self.meanTime = (self.meanTime * self.numConversions + meanTime) / (self.numConversions + 1)
+        self.numConversions += 1
+        self.isConverting = False
+        
+        self.lock.release()
+        
+    def stopRunning(self):
+        self.lock.acquire()
+        self.isRunning = False
+        self.lock.release()
+        
+    def getTimePrediction(self):
+        prediction = 0
+        for item in self.queue:
+            prediction += item[1] * self.meanTime
+        
+        if self.isRunning:
+            timeDifference = self.actualSize * self.meanTime - (time() - self.actualTime)
+            if timeDifference > 0:
+                prediction += timeDifference
+        
+        return prediction

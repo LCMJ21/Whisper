@@ -26,11 +26,15 @@ class Worker(Thread):
         self.shutdown = True if self.shared_queue.empty() else False
 
         while not self.shared_queue.empty():
-            filename = self.shared_queue.get()
-            print("Handling ------>", filename)
+            file = self.shared_queue.get()
+            print("Handling ------>", file[0])
             try:
-                result = self.model.transcribe(filename, fp16=False)["text"]
+                result = self.model.transcribe(file[0], fp16=False)["text"]
+                self.shared_queue.calculteNewMean()
             except Exception as e:
                 result = f"Error: {e}"
+                self.shared_queue.stopRunning()
+                
             open("result.txt", "a").write(
-                f"{filename}\n{result}\n-------------\n")
+                f"{file[0]}\n{result}\n-------------\n")
+            print("Finished ------>", file[0])
