@@ -5,6 +5,8 @@ import socket
 from whisper_spln.lockedQueue import lockedQueue
 import argparse
 import pickle
+import subprocess
+import sys
 
 
 def main():
@@ -49,15 +51,8 @@ def main():
         print('Received:', response.decode())
         client_socket.close()
     except ConnectionRefusedError:
-        event_shutdown = Event()
-        shared_queue = lockedQueue()
-        prediction = shared_queue.put(dict)
-        listener = Listener(shared_queue, event_shutdown)
-        worker = Worker(shared_queue, event_shutdown)
-        print(f'Received: Your file will be ready in {round(prediction, 2)} seconds!')
-        listener.start()
-        worker.start()
-        # TODO run this procees in background
+        subprocess.Popen(
+            ["python3", "whisper_spln/startThreads.py", " ".join(sys.argv[1:])], stdout=open("output.log", "w"), stderr=open("error.log", "w"))
 
 
 class QueueAction(argparse.Action):
