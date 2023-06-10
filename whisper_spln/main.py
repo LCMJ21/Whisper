@@ -1,5 +1,4 @@
 import argparse
-import sys
 from whisper_spln.parserTasks import clearLogs, getLogs, getQueue, runWhisper
 
 
