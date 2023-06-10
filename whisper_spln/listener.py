@@ -4,7 +4,19 @@ import pickle
 from time import time
 
 from whisper_spln.lockedQueue import lockedQueue
-from whisper_spln.parserTasks import timetoMinutesHour
+
+def timetoMinutesHour(seconds):
+    m, s = divmod(seconds, 60)
+    h, m = divmod(m, 60)
+    s = round(s, 2)
+    m = round(m, 0)
+    h = round(h, 0)
+    if h:
+        return f'{h} hours, {m} minutes and {s} seconds'
+    elif m:
+        return f'{m} minutes and {s} seconds'
+    else:
+        return f'{s} seconds'
 
 PORT = 9999
 ASK_QUEUE_STATUS = "ASK_QUEUE_STATUS"
@@ -58,7 +70,7 @@ class Listener(Thread):
         else:
             queue, meanTime, isRunning, actualSize, actualTime = self.shared_queue.put(request)
             prediction = self.predictTime(queue, meanTime, isRunning, actualSize, actualTime)
-            return f'Your file will be ready in {timetoMinutesHour(prediction)} seconds! Location : {request["dest_folder"]}'
+            return f'Your file will be ready in {timetoMinutesHour(prediction)}! Location : {request["dest_folder"]}'
         
     def predictTime(self, queue, meanTime, isRunning, actualSize, actualTime):
         prediction = 0
