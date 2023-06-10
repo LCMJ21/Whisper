@@ -63,8 +63,9 @@ class lockedQueue():
     def all_items(self):
         self.lock.acquire()
         items = self.queue.copy()
+        time = self.meanTime
         self.lock.release()
-        return items
+        return items, time
 
     def calculteNewMean(self):
         self.lock.acquire()

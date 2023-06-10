@@ -41,8 +41,14 @@ class Listener(Thread):
         server_socket.close()
 
     def handle_request(self, request):
-        if request == ASK_QUEUE_STATUS:
-            return f"{self.shared_queue.all_items()}"
+        if request['type'] == ASK_QUEUE_STATUS:
+            queue_list, meanTime = self.shared_queue.all_items()
+            str_queue = 'Queue\nFile Name | File Size | Estimated Time'
+            
+            for item in queue_list:
+                str_queue += f'\n{item["filename"]} | {item["size"]} b | {round(item["size"] * meanTime, 2)} s'
+            
+            return str_queue
         else:
             queue, meanTime, isRunning, actualSize, actualTime = self.shared_queue.put(request)
             prediction = self.predictTime(queue, meanTime, isRunning, actualSize, actualTime)
