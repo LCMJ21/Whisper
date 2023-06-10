@@ -32,13 +32,14 @@ class Worker(Thread):
 
         while not self.shared_queue.empty():
             dict = self.shared_queue.get()
-            dest = dict["dest"]
+            dest = dict["dest_folder"]
             filename = dict["filename"]
-            inputLang = dict["inputLang"]
-            outputLang = dict["outputLang"]
+            inputLang = dict["input_lang"]
+            outputLang = dict["output_lang"]
             print("Handling ------>", filename)
             try:
-                result = self.model.transcribe(filename, fp16=False, language=inputLang)["text"]
+                result = self.model.transcribe(
+                    filename, fp16=False, language=inputLang)["text"]
                 if outputLang != None:
                     result = self.translate(result, outputLang)
                 self.shared_queue.calculteNewMean()
