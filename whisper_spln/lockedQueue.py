@@ -18,7 +18,7 @@ class lockedQueue():
     def loadTime(self):
         script_dir = os.path.dirname(os.path.abspath(__file__))
         config_file_path = os.path.join(script_dir, 'conf/exec_time')
-        print(config_file_path)
+        
         with open(config_file_path, 'r') as file:
             lines = [line.rstrip() for line in file]
         
@@ -30,7 +30,6 @@ class lockedQueue():
         self.lock.acquire()
         script_dir = os.path.dirname(os.path.abspath(__file__))
         config_file_path = os.path.join(script_dir, 'conf/exec_time')
-        print(config_file_path)
         
         with open(config_file_path, 'w') as file:
             file.write(f"{self.meanTime}\n")
