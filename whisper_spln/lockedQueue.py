@@ -85,7 +85,7 @@ class lockedQueue():
         self.meanTime = (self.meanTime * self.numConversions +
                          meanTime) / (self.numConversions + 1)
         self.numConversions += 1
-        self.isConverting = False
+        self.isRunning = False
 
         self.lock.release()
 
