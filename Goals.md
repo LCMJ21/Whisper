@@ -31,6 +31,6 @@ Para desligar o servidor, basta avisa o listener thread que não há mais pedido
 
 - adicionar ao flit para ter instalação mais fácil ✓
 
-- traduções com ou sem googe translate ? João
+- traduções com ou sem google translate ? João  ✓
 
-- Correr as 2 threads em background João
+- Correr as 2 threads em background João 
