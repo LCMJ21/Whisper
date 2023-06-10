@@ -1,6 +1,7 @@
 from threading import Thread, Event
 import socket
 import pickle
+from time import time
 
 from whisper_spln.lockedQueue import lockedQueue
 
@@ -43,5 +44,19 @@ class Listener(Thread):
         if request == ASK_QUEUE_STATUS:
             return f"{self.shared_queue.all_items()}"
         else:
-            prediction = self.shared_queue.put(request)
+            queue, meanTime, isRunning, actualSize, actualTime = self.shared_queue.put(request)
+            prediction = self.predictTime(queue, meanTime, isRunning, actualSize, actualTime)
             return f'Your file will be ready in {round(prediction, 2)} seconds!'
+        
+    def predictTime(self, queue, meanTime, isRunning, actualSize, actualTime):
+        prediction = 0
+        for item in queue:
+            prediction += item["size"] * meanTime
+
+        if isRunning:
+            timeDifference = actualSize * \
+                meanTime - (time() - actualTime)
+            if timeDifference > 0:
+                prediction += timeDifference
+
+        return prediction

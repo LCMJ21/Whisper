@@ -41,10 +41,9 @@ class lockedQueue():
         self.lock.acquire()
         item["size"] = os.stat(item["filename"]).st_size
         self.queue.append(item)
-        prediction = self.getTimePrediction()
         self.lock.release()
 
-        return prediction
+        return self.queue, self.meanTime, self.isRunning, self.actualSize, self.actualTime
 
     def get(self):
         self.lock.acquire()
@@ -83,16 +82,3 @@ class lockedQueue():
         self.lock.acquire()
         self.isRunning = False
         self.lock.release()
-
-    def getTimePrediction(self):
-        prediction = 0
-        for item in self.queue:
-            prediction += item["size"] * self.meanTime
-
-        if self.isRunning:
-            timeDifference = self.actualSize * \
-                self.meanTime - (time() - self.actualTime)
-            if timeDifference > 0:
-                prediction += timeDifference
-
-        return prediction
