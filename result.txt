@@ -1,111 +1,21 @@
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
-Error: 'NoneType' object has no attribute 'group'
--------------
-audio.mp3
-Error: 'NoneType' object has no attribute 'group'
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
-Error: 'NoneType' object has no attribute 'group'
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
-Teste, teste, teste, estou testando sussurro.
--------------
-audio.mp3
-Error: invalid destination language
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
-Teste, teste, teste, estou testando sussurro.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
- Test, test, test, I am testing whisper.
--------------
-audio.mp3
-Teste, teste, teste, estou testando sussurro.
--------------
+ Test, test, test, test, test, test, test, I am testing whisper.
+ Test, test, test, test, test, test, I am testing whisper.
+ Test, test, test, test, test, I am testing whisper.
+ Teste, test, test, test, test... eu sou testinho Whisper.
+ Test, test, test, test, test, test, I am testing whisper.
+ Test, test, test, test, test, test, I am testing whisper.
+ tester tester famine booking whisper
+ Test test test test, eu estou testendo de la pa alongar !!!
+ Test, test, test. Eu estou testando o väjaco.
+ Test, test, test, test, test, test, test, I am testing whisper.
+ Test, test, test, test, test, test, I am testing whisper.
+ Test, test, test, test, eu sou testinho whisper.
+ Test, test, test, test, test, test, testing whisper.
+ Test, test, test, test, I am testing whisper.
+ Test, test, test, test, test, test, I am testing whisper.
+ Test, test, test, test, eu estou testando o whisper.
+ Test, test, test, test! Eu estou testando o Whisper.
+ Test, test, test, test, test, test, test, test, in whisper.
+ Test, test, test, test, test, test, I am testing whisper.
+ Test test test test, eu estou testando o whisper.
+ Test, test, test, test, test, test, eu sou testinho whisper!

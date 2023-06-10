@@ -32,7 +32,7 @@ def runWhisper(input_file, dest_folder, inputLang, outputLang):
         prediction = predictTime(config_file_path, input_file)
         print(f'Your file will be ready in {round(prediction, 2)} seconds!')
         subprocess.Popen(
-            ["python3", "whisper_spln/startThreads.py"] + sys.argv[1:], stdout=open(output_log_path, "w"), stderr=open(error_log_path, "w"))
+            ["python3", "whisper_spln/startThreads.py"] + sys.argv[1:], stdout=open(output_log_path, "a"), stderr=open(error_log_path, "a"))
 
 
 def predictTime(file_time, input_file):

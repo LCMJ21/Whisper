@@ -20,6 +20,7 @@ class Worker(Thread):
         while not self.shutdown:
             self.process_queue()
             sleep(20)  # Sleep for 20 seconds to wait for more work
+            self.process_queue()
         self.shared_queue.saveTime()
         self.event_shutdown.set()
         print("Worker stopped")
@@ -38,8 +39,12 @@ class Worker(Thread):
             outputLang = dict["output_lang"]
             print("Handling ------>", filename)
             try:
-                result = self.model.transcribe(
-                    filename, fp16=False)["text"]
+                if inputLang != None:
+                    result = self.model.transcribe(
+                        filename, fp16=False, language=inputLang)["text"]
+                else:
+                    result = self.model.transcribe(
+                        filename, fp16=False)["text"]
                 if outputLang != None:
                     result = self.translate(result, outputLang)
                 self.shared_queue.calculteNewMean()
@@ -47,7 +52,4 @@ class Worker(Thread):
             except Exception as e:
                 result = f"Error: {e}"
                 self.shared_queue.stopRunning()
-
-            open(dest_folder, "a").write(
-                f"{filename}\n{result}\n-------------\n")
-            print("Finished ------>", filename)
+            open(dest_folder, "a").write(f"{result}\n")
