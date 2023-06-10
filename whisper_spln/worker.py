@@ -32,7 +32,7 @@ class Worker(Thread):
 
         while not self.shared_queue.empty():
             dict = self.shared_queue.get()
-            dest = dict["dest"]
+            dest_folder = dict["dest_folder"]
             filename = dict["filename"]
             inputLang = dict["inputLang"]
             outputLang = dict["outputLang"]
@@ -47,6 +47,6 @@ class Worker(Thread):
                 result = f"Error: {e}"
                 self.shared_queue.stopRunning()
 
-            open(dest, "a").write(
+            open(dest_folder, "a").write(
                 f"{filename}\n{result}\n-------------\n")
             print("Finished ------>", filename)
