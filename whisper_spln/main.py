@@ -1,13 +1,5 @@
-from threading import Event
-from whisper_spln.worker import Worker
-from whisper_spln.listener import ASK_QUEUE_STATUS, PORT, Listener
-import socket
-from whisper_spln.lockedQueue import lockedQueue
 import argparse
-import pickle
-import subprocess
-import sys
-
+from whisper_spln.parserTasks import getQueue, runWhisper
 
 def main():
     parser = argparse.ArgumentParser(
@@ -36,41 +28,15 @@ def main():
     dest_folder = args.dest
     inputLang = args.inputLang
     outputLang = args.outputLang
-    dict = {
-        "filename": input_file,
-        "outputLang": outputLang,
-    }
-    try:
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server_address = ('localhost', PORT)
-        client_socket.connect(server_address)
 
-        send_request = pickle.dumps(dict)
-        client_socket.sendall(send_request)
-        response = client_socket.recv(1024)
-        print('Received:', response.decode())
-        client_socket.close()
-    except ConnectionRefusedError:
-        subprocess.Popen(
-            ["python3", "whisper_spln/startThreads.py", " ".join(sys.argv[1:])], stdout=open("output.log", "w"), stderr=open("error.log", "w"))
-
+    runWhisper(input_file, dest_folder, inputLang, outputLang)
 
 class QueueAction(argparse.Action):
     def __init__(self, option_strings, dest, **kwargs):
         return super().__init__(option_strings, dest, nargs=0, default=argparse.SUPPRESS, **kwargs)
 
     def __call__(self, parser, namespace, values, option_string, **kwargs):
-        try:
-            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            server_address = ('localhost', PORT)
-            client_socket.connect(server_address)
-            client_socket.sendall(ASK_QUEUE_STATUS.encode())
-            response = client_socket.recv(1024)
-            print('Received:', response.decode())
-            client_socket.close()
-        except ConnectionRefusedError:
-            print("No server found, no jobs in queue")
-
+        getQueue()
         parser.exit()
 
 
