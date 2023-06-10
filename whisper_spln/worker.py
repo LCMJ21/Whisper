@@ -33,7 +33,7 @@ class Worker(Thread):
         while not self.shared_queue.empty():
             dict = self.shared_queue.get()
             filename = dict["filename"]
-            outputLang = dict["outputLang"]
+            outputLang = dict["output_lang"]
             print("Handling ------>", filename)
             try:
                 result = self.model.transcribe(filename, fp16=False)["text"]
