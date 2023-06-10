@@ -52,7 +52,7 @@ class Listener(Thread):
         else:
             queue, meanTime, isRunning, actualSize, actualTime = self.shared_queue.put(request)
             prediction = self.predictTime(queue, meanTime, isRunning, actualSize, actualTime)
-            return f'Your file will be ready in {round(prediction, 2)} seconds!'
+            return f'Your file will be ready in {round(prediction, 2)} seconds! Location : {request["dest_folder"]}'
         
     def predictTime(self, queue, meanTime, isRunning, actualSize, actualTime):
         prediction = 0
@@ -60,8 +60,7 @@ class Listener(Thread):
             prediction += item["size"] * meanTime
 
         if isRunning:
-            timeDifference = actualSize * \
-                meanTime - (time() - actualTime)
+            timeDifference = actualSize * meanTime - (time() - actualTime)
             if timeDifference > 0:
                 prediction += timeDifference
 
