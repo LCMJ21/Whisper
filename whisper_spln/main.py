@@ -1,5 +1,5 @@
 import argparse
-from whisper_spln.parserTasks import getQueue, runWhisper
+from whisper_spln.parserTasks import clearLogs, getLogs, getQueue, runWhisper
 
 def main():
     parser = argparse.ArgumentParser(
@@ -19,6 +19,10 @@ def main():
                         help='Language of the output text')
     parser.add_argument('-q', '--queue', action=QueueAction,
                         help='Show the audio conversion queue')
+    parser.add_argument('-l', '--logs', action=LogsAction,
+                        help='Show the execution logs')
+    parser.add_argument('-cl', '--clearLogs', action=ClearLogsAction,
+                        help='Clear logs')
 
     # Parse the command-line arguments
     args = parser.parse_args()
@@ -37,6 +41,22 @@ class QueueAction(argparse.Action):
 
     def __call__(self, parser, namespace, values, option_string, **kwargs):
         getQueue()
+        parser.exit()
+
+class LogsAction(argparse.Action):
+    def __init__(self, option_strings, dest, **kwargs):
+        return super().__init__(option_strings, dest, nargs=0, default=argparse.SUPPRESS, **kwargs)
+
+    def __call__(self, parser, namespace, values, option_string, **kwargs):
+        getLogs()
+        parser.exit()
+
+class ClearLogsAction(argparse.Action):
+    def __init__(self, option_strings, dest, **kwargs):
+        return super().__init__(option_strings, dest, nargs=0, default=argparse.SUPPRESS, **kwargs)
+
+    def __call__(self, parser, namespace, values, option_string, **kwargs):
+        clearLogs()
         parser.exit()
 
 
