@@ -32,11 +32,13 @@ class Worker(Thread):
 
         while not self.shared_queue.empty():
             dict = self.shared_queue.get()
+            dest = dict["dest"]
             filename = dict["filename"]
+            inputLang = dict["inputLang"]
             outputLang = dict["outputLang"]
             print("Handling ------>", filename)
             try:
-                result = self.model.transcribe(filename, fp16=False)["text"]
+                result = self.model.transcribe(filename, fp16=False, language=inputLang)["text"]
                 if outputLang != None:
                     result = self.translate(result, outputLang)
                 self.shared_queue.calculteNewMean()
@@ -45,6 +47,6 @@ class Worker(Thread):
                 result = f"Error: {e}"
                 self.shared_queue.stopRunning()
 
-            open("result.txt", "a").write(
+            open(dest, "a").write(
                 f"{filename}\n{result}\n-------------\n")
             print("Finished ------>", filename)

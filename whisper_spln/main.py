@@ -11,7 +11,7 @@ def main():
     # Add arguments
     parser.add_argument('input_file', type=str,
                         help='Path to the file with the audio')
-    parser.add_argument('-d', '--dest', type=str, default='',
+    parser.add_argument('-d', '--dest', type=str, default='result.txt',
                         help='Path for the output file')
     parser.add_argument('-il', '--inputLang', type=str,
                         default='pt', help='Language of the input file')
