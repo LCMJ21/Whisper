@@ -9,6 +9,7 @@ class lockedQueue():
         self.lock = Lock()
         self.queue = []
         self.isRunning = False
+        self.actualName = ''
         self.actualTime = 0
         self.actualSize = 0
         self.meanTime = 0
@@ -49,6 +50,7 @@ class lockedQueue():
         self.lock.acquire()
         self.actualSize = self.queue[0]["size"]
         self.actualTime = time()
+        self.actualName = self.queue[0]["filename"]
         self.isRunning = True
         item = self.queue.pop(0)
         self.lock.release()
@@ -63,9 +65,17 @@ class lockedQueue():
     def all_items(self):
         self.lock.acquire()
         items = self.queue.copy()
+        
+        if self.isRunning:
+            running = {}
+            running['size'] = self.actualSize
+            running['filename'] = self.actualName
+            items.insert(0, running)
+            
+        isRunning = self.isRunning
         time = self.meanTime
         self.lock.release()
-        return items, time
+        return items, time, isRunning
 
     def calculteNewMean(self):
         self.lock.acquire()
