@@ -30,7 +30,7 @@ class Listener(Thread):
                 request = client_socket.recv(4096)
 
                 received_dict = pickle.loads(request)
-                response = self.handle_request(received_dict["filename"])
+                response = self.handle_request(received_dict)
                 client_socket.sendall(response.encode())
                 client_socket.close()
             except socket.timeout:
