@@ -39,7 +39,7 @@ class Worker(Thread):
             print("Handling ------>", filename)
             try:
                 result = self.model.transcribe(
-                    filename, fp16=False, language=inputLang)["text"]
+                    filename, fp16=False)["text"]
                 if outputLang != None:
                     result = self.translate(result, outputLang)
                 self.shared_queue.calculteNewMean()
