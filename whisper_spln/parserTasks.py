@@ -11,7 +11,8 @@ def runWhisper(input_file, dest_folder, inputLang, outputLang):
         "filename": input_file,
         "output_lang": outputLang,
         "dest_folder": dest_folder,
-        "input_lang": inputLang
+        "input_lang": inputLang,
+        "type": ''
     }
     try:
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -30,7 +31,7 @@ def runWhisper(input_file, dest_folder, inputLang, outputLang):
         config_file_path = os.path.join(script_dir, 'conf/exec_time')
         
         prediction = predictTime(config_file_path, input_file)
-        print(f'Your file will be ready in {round(prediction, 2)} seconds!')
+        print(f'Your file will be ready in {round(prediction, 2)} seconds! Location: {dest_folder}')
         subprocess.Popen(
             ["python3", "whisper_spln/startThreads.py"] + sys.argv[1:], stdout=open(output_log_path, "a"), stderr=open(error_log_path, "a"))
 
