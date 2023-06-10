@@ -22,10 +22,10 @@ Para desligar o servidor, basta avisa o listener thread que não há mais pedido
 
 - Vizualizar o progresso da queue. (adicionar tempo/tamanho ficheiro)
 
-- Calcular o tempo de execução da queue terminar:
+- Calcular o tempo de execução da queue terminar: ✓
     - calcular o tempo de execução de cada pedido para adicionar à media ✓
     - tempo do pedido atual ✓
-    - guarda em ficheiro ao desligar
+    - guarda em ficheiro ao desligar ✓
 
 - argparser para decidir o input, output(opcional), linguagem input(opcional), linguagem output(opcional). ✓
 
@@ -33,8 +33,4 @@ Para desligar o servidor, basta avisa o listener thread que não há mais pedido
 
 - traduções com ou sem googe translate ? João
 
-- COrrer as 2 threads em background João
-
-Extras: CRIS
-- Listar linguas disponiveis para input audio em help
-- Verficar se as liguas de input a audio são suportadas
+- Correr as 2 threads em background João

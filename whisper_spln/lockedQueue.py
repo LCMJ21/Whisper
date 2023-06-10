@@ -16,7 +16,10 @@ class lockedQueue():
         self.loadTime()
     
     def loadTime(self):
-        with open('whisper_spln/conf/exec_time', 'r') as file:
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        config_file_path = os.path.join(script_dir, 'conf/exec_time')
+        print(config_file_path)
+        with open(config_file_path, 'r') as file:
             lines = [line.rstrip() for line in file]
         
         if len(lines) == 2:
@@ -25,8 +28,11 @@ class lockedQueue():
     
     def saveTime(self):
         self.lock.acquire()
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        config_file_path = os.path.join(script_dir, 'conf/exec_time')
+        print(config_file_path)
         
-        with open('whisper_spln/conf/exec_time', 'w') as file:
+        with open(config_file_path, 'w') as file:
             file.write(f"{self.meanTime}\n")
             file.write(f"{self.numConversions}\n")
             
