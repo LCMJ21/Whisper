@@ -42,9 +42,14 @@ class Listener(Thread):
 
     def handle_request(self, request):
         if request['type'] == ASK_QUEUE_STATUS:
-            queue_list, meanTime = self.shared_queue.all_items()
+            queue_list, meanTime, isRunning = self.shared_queue.all_items()
             str_queue = 'Queue\nFile Name | File Size | Estimated Time'
             
+            if isRunning:
+                item = queue_list[0]
+                queue_list = queue_list[1:]
+                str_queue += f'\n{item["filename"]} | {item["size"]} b | {round(item["size"] * meanTime, 2)} s    (running)'
+                
             for item in queue_list:
                 str_queue += f'\n{item["filename"]} | {item["size"]} b | {round(item["size"] * meanTime, 2)} s'
             
