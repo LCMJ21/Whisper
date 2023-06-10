@@ -1,20 +1,9 @@
-from whisper_spln.listener import ASK_QUEUE_STATUS, PORT
+from whisper_spln.listener import ASK_QUEUE_STATUS, PORT, timetoMinutesHour
 import socket
 import pickle
 import subprocess
 import sys
 import os
-
-def timetoMinutesHour(seconds):
-    m, s = divmod(seconds, 60)
-    h, m = divmod(m, 60)
-    s = round(s, 2)
-    if h:
-        return f'{h}hours, {m}minutes and {s}seconds'
-    elif m:
-        return f'{m}minutes and {s}seconds'
-    else:
-        return f'{s}seconds'
 
 
 def runWhisper(input_file, dest_folder, inputLang, outputLang):
@@ -42,7 +31,7 @@ def runWhisper(input_file, dest_folder, inputLang, outputLang):
         config_file_path = os.path.join(script_dir, 'conf/exec_time')
         
         prediction = predictTime(config_file_path, input_file)
-        print(f'Your file will be ready in {timetoMinutesHour(prediction)} seconds! Location: {dest_folder}')
+        print(f'Your file will be ready in {timetoMinutesHour(prediction)}! Location: {dest_folder}')
         subprocess.Popen(
             ["python3", "whisper_spln/startThreads.py"] + sys.argv[1:], stdout=open(output_log_path, "a"), stderr=open(error_log_path, "a"))
 
