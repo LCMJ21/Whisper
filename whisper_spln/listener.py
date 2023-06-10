@@ -61,10 +61,10 @@ class Listener(Thread):
             if isRunning:
                 item = queue_list[0]
                 queue_list = queue_list[1:]
-                str_queue += f'\n{item["filename"]} | {item["size"]} b | {round(item["size"] * meanTime, 2)} s    (running)'
+                str_queue += f'\n{item["filename"]} | {item["size"]} b | {timetoMinutesHour(item["size"] * meanTime)} (running)'
                 
             for item in queue_list:
-                str_queue += f'\n{item["filename"]} | {item["size"]} b | {round(item["size"] * meanTime, 2)} s'
+                str_queue += f'\n{item["filename"]} | {item["size"]} b | {timetoMinutesHour(item["size"] * meanTime)}'
             
             return str_queue
         else:
