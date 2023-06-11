@@ -4,7 +4,11 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "whisper_spln"
-authors = [{ name = "João", email = "joaoandre210@gmail.com" }]
+authors = [
+    { name = "João", email = "joaoandre210@gmail.com" },
+    { name = "Jorge", email = "jorge.lima.ne@gmail.com" },
+    { name = "Cristiano", email = "pg5034@alunos.uminho.pt" },
+]
 readme = "README.md"
 license = { file = "LICENSE" }
 classifiers = ["License :: OSI Approved :: MIT License"]
