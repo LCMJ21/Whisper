@@ -15,4 +15,4 @@ Possible Commands:
     logs (-l, --logs, optional): shows the execution logs.
     clearLogs (-cl, --clearLogs, optional): clear the execution logs.
 """
-__version__ = "0.9"
+__version__ = "0.5"
