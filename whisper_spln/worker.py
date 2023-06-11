@@ -48,6 +48,7 @@ class Worker(Thread):
                 if outputLang != None:
                     result = self.translate(result, outputLang)
                 self.shared_queue.calculteNewMean()
+                result = result.replace(". ", ".\n")
 
             except Exception as e:
                 result = f"Error: {e}"
