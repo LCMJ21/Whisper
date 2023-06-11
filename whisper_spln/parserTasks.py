@@ -29,9 +29,9 @@ def runWhisper(input_file, dest_folder, inputLang, outputLang):
         error_log_path = os.path.join(script_dir, 'conf/error.log')
         output_log_path = os.path.join(script_dir, 'conf/output.log')
         config_file_path = os.path.join(script_dir, 'conf/exec_time')
-        
         prediction = predictTime(config_file_path, input_file)
-        print(f'Your file will be ready in {timetoMinutesHour(prediction)}! Location: {dest_folder}')
+        print(
+            f'Your file will be ready in {timetoMinutesHour(prediction)}! Location: {dest_folder}')
         subprocess.Popen(
             ["python3", "whisper_spln/startThreads.py"] + sys.argv[1:], stdout=open(output_log_path, "a"), stderr=open(error_log_path, "a"))
 
@@ -39,26 +39,26 @@ def runWhisper(input_file, dest_folder, inputLang, outputLang):
 def predictTime(file_time, input_file):
     with open(file_time, 'r') as file:
         lines = [line.rstrip() for line in file]
-    
+
     meanTime = 0
     if len(lines) == 2:
         meanTime = float(lines[0])
-    
+
     size = os.stat(input_file).st_size
     return size * meanTime
-        
+
 
 def getQueue():
     try:
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server_address = ('localhost', PORT)
-        
-        dict = { 'type': ASK_QUEUE_STATUS }
+
+        dict = {'type': ASK_QUEUE_STATUS}
         send_request = pickle.dumps(dict)
         client_socket.connect(server_address)
         client_socket.sendall(send_request)
         response = client_socket.recv(1024)
-        
+
         print(response.decode())
         client_socket.close()
     except ConnectionRefusedError:
