@@ -25,6 +25,6 @@ To work whisper will do 1 of 2 things:
 - listener.py -> listener class that listens for requests and sends them to the queue.
 - lockedQueue.py -> locked queue class that stores the requests whit locks to secure the access from both threads.
 - worker.py -> worker class that gets the requests from the queue and executes them.
-- main.py -> 
-- parserTasks.py -> 
-- startThreads.py ->
+- main.py -> argparse of the service, it has different classes to handle different arguments
+- parserTasks.py -> functions that handle different arguments of the argparse
+- startThreads.py -> tries to access or initializes the threads that will run Whisper
