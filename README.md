@@ -16,12 +16,13 @@ Possible Commands:
     logs (-l, --logs, optional): shows the execution logs.
     clearLogs (-cl, --clearLogs, optional): clear the execution logs.
 
-# Sorce Code
+# Source Code
 
 To work whisper will do 1 of 2 things:
  - whisper will first create 2 threads, one for the listener and one for the worker.
  - If the 2 threads are already running, whisper will send the request to the queue. 
 
+Files:
 - listener.py -> listener class that listens for requests and sends them to the queue.
 - lockedQueue.py -> locked queue class that stores the requests whit locks to secure the access from both threads.
 - worker.py -> worker class that gets the requests from the queue and executes them.
